@@ -1,0 +1,44 @@
+import React, { Component } from 'react';
+import axios from 'axios';
+
+export default class Question extends Component {
+  state = { question: null };
+
+  async componentDidMount() {
+    const {
+      match: { params }
+    } = this.props;
+    const question = (await axios.get(
+      `http://localhost:8081/${params.questionId}`
+    )).data;
+    this.setState({
+      question
+    });
+  }
+
+  renderAnswers = () => {
+    return this.state.question.answers.map((answer, idx) => (
+      <p className="lead" key={idx}>
+        {answer.answer}
+      </p>
+    ));
+  };
+
+  render() {
+    const { question } = this.state;
+    if (question === null) return <p>Loading ...</p>;
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="jumbotron col-12">
+            <h1 className="display-3">{question.title}</h1>
+            <p className="lead">{question.description}</p>
+            <hr className="my-4" />
+            <p>Answers:</p>
+            {this.renderAnswers()}
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
