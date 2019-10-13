@@ -1,3 +1,4 @@
+import Callback from './Callback';
 import NavBar from './NavBar/NavBar';
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
@@ -9,6 +10,7 @@ class App extends Component {
       <div>
         <NavBar />
         <Route exact path="/" component={Questions} />
+        <Route exact path="/callback" component={Callback} />
         <Route exact path="/question/:questionId" component={Question} />
       </div>
     );
