@@ -2,7 +2,7 @@ import React from 'react';
 import auth0Client from '../Auth';
 import { Link, withRouter } from 'react-router-dom';
 
-function NavBar() {
+function NavBar(props) {
   const signOut = () => {
     auth0Client.signOut();
     props.history.replace('/');
