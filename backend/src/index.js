@@ -60,9 +60,13 @@ app.post('/', (req, res) => {
 // insert a new answer to a question
 app.post('/answer/:id', (req, res) => {
   const { answer } = req.body;
+  console.log(answer);
   const question = questions.filter(q => q.id === parseInt(req.params.id));
   if (questions.length > 1) res.status(500).send();
   if (question.length === 0) res.status(404).send();
+  question[0].answers.push({
+    answer
+  });
   res.status(201).send();
 });
 
